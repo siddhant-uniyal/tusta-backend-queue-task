@@ -2,9 +2,11 @@
 
 Clone the repo : git clone
 
-Run the server : node server.js
+Install dependencies : npm install
 
-Run the worker : node worker.js
+Run the server in the 1st terminal : node server.js
+
+Run the worker in the 2nd terminal : node worker.js
 
 # API Usage
 
@@ -28,4 +30,4 @@ Method : GET
 
 # Logging
 
-Worker outputs logs to the console
+The worker terminal outputs logs to the console
