@@ -1,8 +1,6 @@
 import { createClient } from 'redis';
 
-const client = createClient({
-    url : process.env.REDIS_URL
-});
+const client = createClient()
 
 client.on('error', e => console.log('Redis Client Error', e.message));
 

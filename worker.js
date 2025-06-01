@@ -1,4 +1,4 @@
-import { createClient } from 'redis';
+import client from "./redisClient.js"
 import { enqueueJob } from "./controllers.js"
 
 const processJob = async (jobId) => {
@@ -15,7 +15,9 @@ const processJob = async (jobId) => {
         console.log(`Subject: ${jobData.payload.subject}`)
         console.log(`Message: ${jobData.payload.message}`)
 
-        const isFailed = await new Promise((resolve) => setTimeout(resolve(Math.round(Math.random())) , 1000))
+        const isFailed = await new Promise((resolve) => {
+            setTimeout(() => resolve(Math.round(Math.random())), 1000)
+        })
 
         if(isFailed){
             throw new Error("Email service stopped unexpectedly")
@@ -29,6 +31,7 @@ const processJob = async (jobId) => {
     catch(e){
         console.log(`JOB ID ${jobData.id} FAILED: ${e.message}`)
         jobData.retries += 1
+        console.log(`Retry count: ${jobData.retries}`)
         if(jobData.retries > 3){
             console.log("PERMANENTLY FAILED")
             jobData.status = "failed"
@@ -56,11 +59,5 @@ const pollQueue = () => {
         }
     } , 500)
 }
-
-const client = createClient({
-    url : process.env.REDIS_URL
-});
-
-await client.connect()
 
 pollQueue()
