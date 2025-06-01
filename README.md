@@ -4,7 +4,7 @@ Clone the repo : git clone
 
 Install dependencies : npm install
 
-Run the server in the 1st terminal : node server.js
+Run the server on port 3000 in the 1st terminal : node server.js
 
 Run the worker in the 2nd terminal : node worker.js
 
